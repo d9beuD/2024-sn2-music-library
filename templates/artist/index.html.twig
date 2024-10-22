@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% import "components.html.twig" as component %}
+{% block title %}Artist index{% endblock %}
+
+{% block body %}
+    <div class="row align-items-center mb-3">
+        <div class="col">
+            <h1>Artist index</h1>
+        </div>
+        {% if is_granted('ROLE_USER') %}
+            <div class="col-auto">
+                <a class="btn btn-primary" href="{{ path('app_artist_new') }}">Create new</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="row g-3 mb-3">
+        {% for artist in artists %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                {{ component.card(
+                    artist.name,
+                    null,
+                    path('app_artist_show', {'id': artist.id}),
+                    artist.thumbnailUrl,
+                    artist.name ~ ' profile picture'
+                ) }}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

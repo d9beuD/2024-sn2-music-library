@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% import "components.html.twig" as component %}
+
+{% block title %}Release index{% endblock %}
+
+{% block body %}
+    <h1>Release index</h1>
+
+    <div class="row">
+        {% for release in releases %}
+            <div class="col-sm-4 col-md-3">
+                {{ component.card(
+                    release.title,
+                    release.artist.name,
+                    path('app_release_show', { id: release.id }),
+                    release.thumbnailUrl,
+                    release.title
+                ) }}
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('app_release_new') }}">Create new</a>
+{% endblock %}

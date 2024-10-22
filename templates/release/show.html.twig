@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Release{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <img src="{{ release.thumbnailUrl }}" alt="" class="img-fluid rounded-4 shadow mb-3">
+            <div class="mb-3">
+                Duration: {{ release.readableDuration }} <br>
+                Track count: {{ release.tracks | length }}
+            </div>
+
+            <div class="list-group">
+                <a href="{{ path('app_release_index') }}" class="list-group-item">
+                    <i class="fa-solid fa-arrow-left fa-fw"></i>
+                    Back to list
+                </a>
+                <a href="{{ path('app_release_new_track', { id: release.id }) }}" class="list-group-item text-primary">
+                    <i class="fa-solid fa-plus fa-fw"></i>
+                    Add track
+                </a>
+                <a href="{{ path('app_release_edit', {'id': release.id}) }}" class="list-group-item text-primary">
+                    <i class="fa-solid fa-edit fa-fw"></i>
+                    Edit
+                </a>
+                {{ include('release/_delete_form.html.twig') }}
+            </div>
+        </div>
+        <div class="col">
+            <h1 class="mb-0">{{ release.title }}</h1>
+            <div class="fw-bold text-secondary">{{ release.artist.name }}</div>
+
+            <ul class="list-unstyled track-list my-3">
+                {% for track in release.tracks %}
+                    <li class="py-1 px-3 rounded">
+                        <div class="row">
+                            <div class="col">{{ track.title }}</div>
+                            <div class="col-auto">{{ track.readableDuration }}</div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

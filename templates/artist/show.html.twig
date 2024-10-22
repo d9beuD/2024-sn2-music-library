@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Artist{% endblock %}
+
+{% block body %}
+
+    <div class="row my-3">
+        <div class="col-8 col-md-3 mx-auto">
+            <div class="ratio ratio-1x1">
+                <img class="object-fit-cover img-fluid rounded-4" src="{{ artist.thumbnailUrl }}" alt="profile picture">
+            </div>
+        </div>
+        <div class="col-12 col-md">
+            <h1 class="text-center text-md-start">{{ artist.name }}</h1>
+            <p>
+                {{ artist.name }} has {{ artist.releases | length }} release{{ artist.releases | length > 1 ? 's':'' }}.
+            </p>
+        </div>
+    </div>
+
+    <div class="row gx-1 justify-content-center justify-content-md-start mb-3">
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('app_artist_index') }}">back to list</a>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-primary" href="{{ path('app_artist_edit', {'id': artist.id}) }}">edit</a>
+        </div>
+        <div class="col-auto">
+            {{ include('artist/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+    <h2>Releases</h2>
+    <div class="row g-3">
+        {% for release in artist.releases %}
+            <div class="col-sm-4 col-md-3">
+                <div class="card shadow">
+                    <img src="{{ release.thumbnailUrl }}" alt="" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ release.title }}</h5>
+                        <p class="card-text">{{ release.releasedAt | date('d/m/Y') }}</p>
+                        <a href="{{ path('app_release_show', { id: release.id }) }}" class="btn btn-primary">Show</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col">
+                <div class="alert alert-info">
+                    There is no release yet.
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

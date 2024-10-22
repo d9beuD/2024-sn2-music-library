@@ -1,0 +1,31 @@
+{% macro card(title, subtitle, href, img_src, img_alt) %}
+    <div class="card">
+        <div class="ratio ratio-1x1">
+            <img src="{{ img_src }}" alt="{{ img_alt }}" class="card-img-top object-fit-cover">
+        </div>
+
+        <div class="card-body">
+            <h5 class="card-title">{{ title }}</h5>
+            
+            {% if subtitle is not null %}
+                <p class="card-text">{{ subtitle }}</p>
+            {% endif %}
+
+            {{ _self.btn('Show', 'primary', href) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro btn(label, theme, href, size = "md") %}
+    <a href="{{ href }}" class="btn btn-{{ theme }} btn-{{ size }}">{{ label }}</a>
+{% endmacro %}
+
+{% macro nav_item(label, href, active = false) %}
+    <li class="nav-item">
+        <a 
+            class="nav-link {{ active ? 'active':'' }}" 
+            aria-current="page" 
+            href="{{ href }}"
+        >{{ label }}</a>
+    </li>
+{% endmacro %}

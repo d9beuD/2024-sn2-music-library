@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Artist{% endblock %}
+
+{% block body %}
+    <h1>Edit Artist</h1>
+
+    {{ include('artist/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <div class="row gx-1">
+        <div class="col-auto">
+            <button type="submit" form="artist-form" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('app_artist_show', { id: artist.id }) }}">back to artist</a>
+        </div>
+        <div class="col-auto">
+            <a class="btn btn-secondary" href="{{ path('app_artist_index') }}">back to list</a>
+        </div>
+        <div class="col-auto">
+            {{ include('artist/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}
